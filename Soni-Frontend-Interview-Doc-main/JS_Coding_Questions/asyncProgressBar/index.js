@@ -1,6 +1,5 @@
 // Quesiton
 // Level ->> Medium
-// Asked in Coursera, Uber
 
 // // How can you implement a progress bar system that supports multiple 
 // // concurrent progress animations

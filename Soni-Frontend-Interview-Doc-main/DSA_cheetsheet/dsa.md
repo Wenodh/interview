@@ -48,7 +48,7 @@
 | 8  | [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/) | Hard | - |
 | 9  | [Decode String](https://leetcode.com/problems/decode-string/description/) | Medium | - |
 | 10 | [Odd String Difference](https://leetcode.com/problems/odd-string-difference/description/) | Easy | - |
-| 11 | [Text Justification](https://leetcode.com/problems/text-justification/description/) | Hard | Asked in Coursera |
+| 11 | [Text Justification](https://leetcode.com/problems/text-justification/description/) | Hard | Asked in |
 | 12 | [Basic Calculator](https://leetcode.com/problems/basic-calculator/description/) | Hard | Asked in machine coding to build a calculator |
 | 13 | [Search Suggestion System](https://leetcode.com/problems/search-suggestions-system/description/) | Medium | - |
 | 14 | [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) | Medium | Concept used in Typeahead |
