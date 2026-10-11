@@ -1,0 +1,52 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
+
+interface Props {
+  appUrl: string;
+  htmlCode?: string;
+  jsCode?: string;
+  cssCode?: string;
+}
+
+const { appUrl, htmlCode, jsCode, cssCode } = Astro.props;
+---
+
+<div class="machine-sandbox-container my-6">
+  <Tabs>
+    <TabItem label="📱 Live Sandbox Preview" icon="laptop">
+      <div class="sandbox-preview-container rounded-lg border border-gray-700 bg-slate-900 overflow-hidden shadow-lg my-4">
+        <div class="sandbox-header flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-gray-700 text-xs text-gray-300">
+          <span class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+            <span class="ml-2 font-mono">{appUrl}</span>
+          </span>
+          <a href={appUrl} target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline font-sans">
+            Open in New Tab ↗
+          </a>
+        </div>
+        <iframe src={appUrl} class="sandbox-iframe w-full h-[520px] bg-white border-0" title="Machine Coding Live Preview"></iframe>
+      </div>
+    </TabItem>
+
+    {jsCode && jsCode.trim().length > 0 && (
+      <TabItem label="JavaScript (index.js)" icon="code">
+        <Code code={jsCode} lang="javascript" title="index.js" />
+      </TabItem>
+    )}
+
+    {htmlCode && htmlCode.trim().length > 0 && (
+      <TabItem label="HTML (index.html)" icon="document">
+        <Code code={htmlCode} lang="html" title="index.html" />
+      </TabItem>
+    )}
+
+    {cssCode && cssCode.trim().length > 0 && (
+      <TabItem label="CSS (style.css)" icon="star">
+        <Code code={cssCode} lang="css" title="style.css" />
+      </TabItem>
+    )}
+  </Tabs>
+</div>
