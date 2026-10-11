@@ -1,4 +1,4 @@
 ---
-title: "Upcoming: Agoda"
-description: "Frontend interview experience at Upcoming: Agoda."
+title: "Agoda (Upcoming)"
+description: "Frontend interview experience at Agoda (Upcoming)."
 ---

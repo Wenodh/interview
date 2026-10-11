@@ -1,6 +1,6 @@
 ---
-title: "FlattenArray"
-description: "Implementation and code solution for FlattenArray."
+title: "Flatten Array"
+description: "Implementation and code solution for Flatten Array."
 ---
 
 ```javascript

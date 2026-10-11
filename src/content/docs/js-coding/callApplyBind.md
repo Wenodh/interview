@@ -1,6 +1,6 @@
 ---
-title: "CallApplyBind"
-description: "Implementation and code solution for CallApplyBind."
+title: "Call Apply Bind"
+description: "Implementation and code solution for Call Apply Bind."
 ---
 
 ```javascript

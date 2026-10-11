@@ -1,6 +1,6 @@
 ---
-title: "EventEmitter"
-description: "Implementation and code solution for EventEmitter."
+title: "Event Emitter"
+description: "Implementation and code solution for Event Emitter."
 ---
 
 ```javascript

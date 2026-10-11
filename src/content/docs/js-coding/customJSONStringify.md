@@ -1,6 +1,6 @@
 ---
-title: "CustomJSONStringify"
-description: "Implementation and code solution for CustomJSONStringify."
+title: "Custom JSONStringify"
+description: "Implementation and code solution for Custom JSONStringify."
 ---
 
 ```javascript

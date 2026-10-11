@@ -1,6 +1,6 @@
 ---
-title: "PipeAndCompose"
-description: "Implementation and code solution for PipeAndCompose."
+title: "Pipe And Compose"
+description: "Implementation and code solution for Pipe And Compose."
 ---
 
 ```javascript

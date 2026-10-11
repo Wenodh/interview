@@ -1,6 +1,6 @@
 ---
-title: "TypeHeadSearch"
-description: "Implementation and code solution for TypeHeadSearch."
+title: "Type Head Search"
+description: "Implementation and code solution for Type Head Search."
 ---
 
 ```javascript

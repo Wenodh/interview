@@ -1,6 +1,6 @@
 ---
-title: "PromiseAll"
-description: "Implementation and code solution for PromiseAll."
+title: "Promise All"
+description: "Implementation and code solution for Promise All."
 ---
 
 ```javascript

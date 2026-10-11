@@ -1,6 +1,6 @@
 ---
-title: "ArrayPolyfills"
-description: "Implementation and code solution for ArrayPolyfills."
+title: "Array Polyfills"
+description: "Implementation and code solution for Array Polyfills."
 ---
 
 ```javascript

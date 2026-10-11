@@ -1,6 +1,6 @@
 ---
-title: "PromiseRace"
-description: "Implementation and code solution for PromiseRace."
+title: "Promise Race"
+description: "Implementation and code solution for Promise Race."
 ---
 
 ```javascript

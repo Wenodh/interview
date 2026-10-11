@@ -1,4 +1,4 @@
 ---
-title: "Upcoming: Multiplier"
-description: "Frontend interview experience at Upcoming: Multiplier."
+title: "Multiplier (Upcoming)"
+description: "Frontend interview experience at Multiplier (Upcoming)."
 ---

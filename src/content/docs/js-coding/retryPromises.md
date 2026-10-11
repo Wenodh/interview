@@ -1,6 +1,6 @@
 ---
-title: "RetryPromises"
-description: "Implementation and code solution for RetryPromises."
+title: "Retry Promises"
+description: "Implementation and code solution for Retry Promises."
 ---
 
 ```javascript

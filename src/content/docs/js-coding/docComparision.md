@@ -1,6 +1,6 @@
 ---
-title: "DocComparision"
-description: "Implementation and code solution for DocComparision."
+title: "Doc Comparision"
+description: "Implementation and code solution for Doc Comparision."
 ---
 
 ```javascript

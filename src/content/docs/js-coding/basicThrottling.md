@@ -1,6 +1,6 @@
 ---
-title: "BasicThrottling"
-description: "Implementation and code solution for BasicThrottling."
+title: "Basic Throttling"
+description: "Implementation and code solution for Basic Throttling."
 ---
 
 ```javascript

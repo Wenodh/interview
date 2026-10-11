@@ -1,6 +1,6 @@
 ---
-title: "DeepCloneObject"
-description: "Implementation and code solution for DeepCloneObject."
+title: "Deep Clone Object"
+description: "Implementation and code solution for Deep Clone Object."
 ---
 
 ```javascript

@@ -1,6 +1,6 @@
 ---
-title: "MapLimit"
-description: "Implementation and code solution for MapLimit."
+title: "Map Limit"
+description: "Implementation and code solution for Map Limit."
 ---
 
 ```javascript

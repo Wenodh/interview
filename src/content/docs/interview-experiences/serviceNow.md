@@ -1,6 +1,6 @@
 ---
-title: "ServiceNow"
-description: "Frontend interview experience at ServiceNow."
+title: "Service Now"
+description: "Frontend interview experience at Service Now."
 ---
 
 ServiceNow Interview Experience ✌️

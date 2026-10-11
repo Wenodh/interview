@@ -1,6 +1,6 @@
 ---
-title: "ClearAllTimeout"
-description: "Implementation and code solution for ClearAllTimeout."
+title: "Clear All Timeout"
+description: "Implementation and code solution for Clear All Timeout."
 ---
 
 ```javascript

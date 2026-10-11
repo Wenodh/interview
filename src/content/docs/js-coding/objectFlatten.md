@@ -1,6 +1,6 @@
 ---
-title: "ObjectFlatten"
-description: "Implementation and code solution for ObjectFlatten."
+title: "Object Flatten"
+description: "Implementation and code solution for Object Flatten."
 ---
 
 ```javascript

@@ -1,6 +1,6 @@
 ---
-title: "SortArray"
-description: "Implementation and code solution for SortArray."
+title: "Sort Array"
+description: "Implementation and code solution for Sort Array."
 ---
 
 ```javascript

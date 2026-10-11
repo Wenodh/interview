@@ -1,6 +1,6 @@
 ---
-title: "PrototypeInheritance"
-description: "Implementation and code solution for PrototypeInheritance."
+title: "Prototype Inheritance"
+description: "Implementation and code solution for Prototype Inheritance."
 ---
 
 ```javascript
