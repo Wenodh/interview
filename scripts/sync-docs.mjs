@@ -194,15 +194,15 @@ if (fs.existsSync(jsCodingSourceDir)) {
       const title = formatTitle(item);
       const appUrl = `/apps/js-coding/${item.toLowerCase()}/index.html`;
 
-      let mdDoc = `---\ntitle: "${title}"\ndescription: "Interactive JS coding challenge: ${title}."\n---\n\nimport MachineSandbox from '../../../src/components/MachineSandbox.astro';\n\n`;
+      let mdDoc = `---\ntitle: "${title}"\ndescription: "Interactive JS coding challenge: ${title}."\n---\n\nimport MachineSandbox from '../../../components/MachineSandbox.astro';\n\n`;
 
       if (mdFile) {
         mdDoc += `${mdFile.replace(/---[\s\S]*?---/, '')}\n\n`;
       }
 
-      mdDoc += `<MachineSandbox appUrl="${appUrl}" htmlCode={\`${(htmlFile || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} jsCode={\`${(jsFile || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} cssCode={\`${(cssFile || '').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} />\n`;
+      mdDoc += `<MachineSandbox appUrl="${appUrl}" htmlCode={${JSON.stringify(htmlFile || '')}} jsCode={${JSON.stringify(jsFile || '')}} cssCode={${JSON.stringify(cssFile || '')}} />\n`;
 
-      fs.writeFileSync(path.join(jsCodingTargetDir, `${item.toLowerCase()}.md`), mdDoc, 'utf-8');
+      fs.writeFileSync(path.join(jsCodingTargetDir, `${item.toLowerCase()}.mdx`), mdDoc, 'utf-8');
     }
   }
 }
@@ -236,9 +236,9 @@ if (fs.existsSync(machineSourceDir)) {
       const title = formatTitle(proj);
       const appUrl = `/apps/machine-coding/${proj.toLowerCase()}/index.html`;
 
-      const mdDoc = `---\ntitle: "${title}"\ndescription: "Interactive machine coding implementation of ${title}."\n---\n\nimport MachineSandbox from '../../../src/components/MachineSandbox.astro';\n\nInteractive live demo and source code tabs for **${title}**:\n\n<MachineSandbox appUrl="${appUrl}" htmlCode={\`${htmlCode.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} jsCode={\`${jsCode.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} cssCode={\`${cssCode.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`} />\n`;
+      const mdDoc = `---\ntitle: "${title}"\ndescription: "Interactive machine coding implementation of ${title}."\n---\n\nimport MachineSandbox from '../../../components/MachineSandbox.astro';\n\nInteractive live demo and source code tabs for **${title}**:\n\n<MachineSandbox appUrl="${appUrl}" htmlCode={${JSON.stringify(htmlCode)}} jsCode={${JSON.stringify(jsCode)}} cssCode={${JSON.stringify(cssCode)}} />\n`;
 
-      fs.writeFileSync(path.join(machineTargetDir, `${proj.toLowerCase()}.md`), mdDoc, 'utf-8');
+      fs.writeFileSync(path.join(machineTargetDir, `${proj.toLowerCase()}.mdx`), mdDoc, 'utf-8');
     }
   }
 }

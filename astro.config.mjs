@@ -3,9 +3,13 @@ import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
+
 export default defineConfig({
+  site: 'https://wenodh.github.io',
+  base: process.env.BASE_PATH || (isVercel ? '/' : '/interview'),
   output: 'static',
-  adapter: vercel(),
+  ...(isVercel ? { adapter: vercel() } : {}),
   integrations: [
     starlight({
       title: 'Wenodh Frontend Interview Handbook',
