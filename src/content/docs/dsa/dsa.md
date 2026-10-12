@@ -1,6 +1,8 @@
 ---
-title: "Dsa"
+title: "DSA Cheatsheet"
 description: "DSA Cheatsheet and concepts for frontend interviews."
+sidebar:
+  order: 1
 ---
 
 # DSA

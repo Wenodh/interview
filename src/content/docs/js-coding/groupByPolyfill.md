@@ -1,6 +1,6 @@
 ---
-title: "GroupByPolyfill"
-description: "Implementation and code solution for GroupByPolyfill."
+title: "Group By Polyfill"
+description: "Implementation and code solution for Group By Polyfill."
 ---
 
 ```javascript

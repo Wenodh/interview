@@ -1,6 +1,6 @@
 ---
-title: "ExtendedEventEmitter"
-description: "Implementation and code solution for ExtendedEventEmitter."
+title: "Extended Event Emitter"
+description: "Implementation and code solution for Extended Event Emitter."
 ---
 
 ```javascript

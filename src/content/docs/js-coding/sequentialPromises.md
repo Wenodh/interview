@@ -1,6 +1,6 @@
 ---
-title: "SequentialPromises"
-description: "Implementation and code solution for SequentialPromises."
+title: "Sequential Promises"
+description: "Implementation and code solution for Sequential Promises."
 ---
 
 ```javascript

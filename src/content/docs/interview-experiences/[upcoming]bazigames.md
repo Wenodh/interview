@@ -1,4 +1,4 @@
 ---
-title: "Upcoming: bazigames"
-description: "Frontend interview experience at Upcoming: bazigames."
+title: "Bazigames (Upcoming)"
+description: "Frontend interview experience at Bazigames (Upcoming)."
 ---

@@ -1,6 +1,6 @@
 ---
-title: "ChainCalculator"
-description: "Implementation and code solution for ChainCalculator."
+title: "Chain Calculator"
+description: "Implementation and code solution for Chain Calculator."
 ---
 
 ```javascript

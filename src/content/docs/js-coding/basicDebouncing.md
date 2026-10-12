@@ -1,6 +1,6 @@
 ---
-title: "BasicDebouncing"
-description: "Implementation and code solution for BasicDebouncing."
+title: "Basic Debouncing"
+description: "Implementation and code solution for Basic Debouncing."
 ---
 
 ```javascript

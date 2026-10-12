@@ -1,6 +1,6 @@
 ---
-title: "ArrayPushEvent"
-description: "Implementation and code solution for ArrayPushEvent."
+title: "Array Push Event"
+description: "Implementation and code solution for Array Push Event."
 ---
 
 ```javascript

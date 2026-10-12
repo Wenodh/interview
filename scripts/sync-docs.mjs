@@ -65,8 +65,16 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 fs.writeFileSync(path.join(DOCS_DIR, 'index.mdx'), indexPageContent, 'utf-8');
 
 function formatTitle(str) {
-  const cleanStr = str.replace(/[-_]/g, ' ').replace(/\[upcoming\]/gi, 'Upcoming: ');
-  return cleanStr.charAt(0).toUpperCase() + cleanStr.slice(1);
+  if (str.toLowerCase() === 'dsa') return 'DSA Cheatsheet';
+  if (str.toLowerCase() === 'cp-code-template') return 'CP Code Templates';
+  let isUpcoming = false;
+  if (/\[upcoming\]/i.test(str)) {
+    isUpcoming = true;
+    str = str.replace(/\[upcoming\]/gi, '');
+  }
+  let cleanStr = str.replace(/[-_]/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2');
+  cleanStr = cleanStr.charAt(0).toUpperCase() + cleanStr.slice(1);
+  return isUpcoming ? `${cleanStr} (Upcoming)` : cleanStr;
 }
 
 // 2. Sync DSA Cheatsheet
@@ -80,8 +88,15 @@ if (fs.existsSync(dsaSourceDir)) {
       let content = fs.readFileSync(path.join(dsaSourceDir, file), 'utf-8');
       const nameWithoutExt = path.basename(file, '.md');
       const title = formatTitle(nameWithoutExt);
+      const order = nameWithoutExt.toLowerCase() === 'dsa' ? 1 : 2;
+
       if (!content.trim().startsWith('---')) {
-        content = `---\ntitle: "${title}"\ndescription: "DSA Cheatsheet and concepts for frontend interviews."\n---\n\n` + content;
+        content = `---\ntitle: "${title}"\ndescription: "DSA Cheatsheet and concepts for frontend interviews."\nsidebar:\n  order: ${order}\n---\n\n` + content;
+      } else {
+        // If frontmatter already exists, ensure sidebar order is present or updated
+        if (!content.includes('sidebar:')) {
+          content = content.replace(/^---/m, `---\nsidebar:\n  order: ${order}`);
+        }
       }
       fs.writeFileSync(path.join(dsaTargetDir, file), content, 'utf-8');
     }

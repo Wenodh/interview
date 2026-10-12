@@ -1,4 +1,4 @@
 ---
-title: "Upcoming: ForwrdNetwork"
-description: "Frontend interview experience at Upcoming: ForwrdNetwork."
+title: "Forwrd Network (Upcoming)"
+description: "Frontend interview experience at Forwrd Network (Upcoming)."
 ---

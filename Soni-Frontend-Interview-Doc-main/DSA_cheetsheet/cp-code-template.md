@@ -1,6 +1,8 @@
 ---
 title: "CP Code Templates"
 description: "Common Competitive Programming coding templates and algorithmic patterns."
+sidebar:
+  order: 2
 ---
 
 # Common CP Coding Templates

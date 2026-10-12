@@ -1,6 +1,6 @@
 ---
-title: "AsyncTaskWithDependency"
-description: "Implementation and code solution for AsyncTaskWithDependency."
+title: "Async Task With Dependency"
+description: "Implementation and code solution for Async Task With Dependency."
 ---
 
 ```javascript

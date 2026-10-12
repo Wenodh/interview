@@ -1,6 +1,6 @@
 ---
-title: "CancelablePromise"
-description: "Implementation and code solution for CancelablePromise."
+title: "Cancelable Promise"
+description: "Implementation and code solution for Cancelable Promise."
 ---
 
 ```javascript

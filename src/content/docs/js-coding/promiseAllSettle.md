@@ -1,6 +1,6 @@
 ---
-title: "PromiseAllSettle"
-description: "Implementation and code solution for PromiseAllSettle."
+title: "Promise All Settle"
+description: "Implementation and code solution for Promise All Settle."
 ---
 
 ```javascript
