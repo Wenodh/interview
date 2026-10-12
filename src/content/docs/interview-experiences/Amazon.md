@@ -65,3 +65,36 @@ How will data flow from the frontend to the backend? Create interfaces for each 
 Outcome:
 I created some HLD diagrams using the provided tool, but received average feedback for this round. It went moderately well.
 ```
+
+---
+
+## Amazon SDE-2 Frontend Process (Bangalore)
+
+1. **Online Assessment**: DSA problems, sometimes a work-style section.
+2. **Frontend Machine Coding**: Build a component, then take extensions (e.g. Carousel, File Explorer).
+3. **DSA + JavaScript**: Algorithms plus output prediction.
+4. **Frontend System Design**: Architecture and trade-offs.
+5. **Bar Raiser**: Leadership Principles, possibly a DSA follow-up.
+
+*Note: Experiences vary by team and interviewer.*
+
+---
+
+## Behavioral / Bar Raiser (Amazon Leadership Principles)
+
+- **STAR Format**: Always format responses using **Situation, Task, Action, Result** (with metrics).
+- **Core Story Prep**: Prepare 6–8 concrete stories that flex across principles:
+  - *Ownership* & taking responsibility
+  - *Customer Obsession*
+  - *Dive Deep*
+  - *Bias for Action*
+  - *Disagree and Commit*
+  - *Earn Trust*
+  - *Deliver Results*
+  - *Learn and Be Curious*
+- **Key Guidelines**:
+  - Use **"I"**, not "we", for actions you specifically took.
+  - Include a failure story and detail what you learned and changed afterward.
+  - Expect deep follow-ups ("What would you do differently?").
+  - Quantify impact wherever possible (e.g., latency down 40%, conversion up 5%).
+  - Use real examples with context, actions, and outcomes rather than memorized generic answers.

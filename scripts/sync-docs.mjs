@@ -33,8 +33,8 @@ template: splash
 hero:
   tagline: Master Frontend Engineering Interviews with Interactive Demos, JS Polyfills, DSA Notes, and Company Insights.
   actions:
-    - text: Explore DSA Cheatsheet
-      link: /dsa/dsa/
+    - text: Read Interview Handbook
+      link: /handbook/javascript/
       icon: right-arrow
       variant: primary
     - text: Practice Machine Coding
@@ -47,6 +47,9 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## 🚀 What's Inside
 
 <CardGrid stagger>
+	<Card title="📖 Interview Handbook" icon="open-book">
+		Comprehensive breakdown of JS, React, System Design, Performance, Security, Debugging, and Top 15 Questions.
+	</Card>
 	<Card title="🧠 DSA Cheatsheet" icon="pencil">
 		Core data structures and algorithms concepts tailored for frontend engineers.
 	</Card>
@@ -56,7 +59,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	<Card title="💻 Interactive Machine Coding" icon="laptop">
 		Live runnable mini-applications like WhatsApp Chat, Google Calendar, Nested Checkbox, TypeAhead, File Tree with embedded previews.
 	</Card>
-	<Card title="🏢 Company Experiences" icon="open-book">
+	<Card title="🏢 Company Experiences" icon="document">
 		Real interview questions and round experiences from Google, Amazon, Uber, Rippling, Dream11, Thoughtspot, and more.
 	</Card>
 </CardGrid>
@@ -254,6 +257,21 @@ if (fs.existsSync(machineSourceDir)) {
       const mdDoc = `---\ntitle: "${title}"\ndescription: "Interactive machine coding implementation of ${title}."\n---\n\nimport MachineSandbox from '../../../components/MachineSandbox.astro';\n\nInteractive live demo and source code tabs for **${title}**:\n\n<MachineSandbox appUrl="${appUrl}" htmlCode={${JSON.stringify(htmlCode)}} jsCode={${JSON.stringify(jsCode)}} cssCode={${JSON.stringify(cssCode)}} />\n`;
 
       fs.writeFileSync(path.join(machineTargetDir, `${proj.toLowerCase()}.mdx`), mdDoc, 'utf-8');
+    }
+  }
+}
+
+// 7. Sync Handbook Sections & Top Questions
+const handbookSourceDir = path.join(SRC_DIR, 'handbook');
+const handbookTargetDir = path.join(DOCS_DIR, 'handbook');
+ensureDirSync(handbookTargetDir);
+
+if (fs.existsSync(handbookSourceDir)) {
+  const files = fs.readdirSync(handbookSourceDir);
+  for (const file of files) {
+    if (file.endsWith('.md') || file.endsWith('.mdx')) {
+      let content = fs.readFileSync(path.join(handbookSourceDir, file), 'utf-8');
+      fs.writeFileSync(path.join(handbookTargetDir, file), content, 'utf-8');
     }
   }
 }
