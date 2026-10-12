@@ -5,8 +5,8 @@ template: splash
 hero:
   tagline: Master Frontend Engineering Interviews with Interactive Demos, JS Polyfills, DSA Notes, and Company Insights.
   actions:
-    - text: Explore DSA Cheatsheet
-      link: /dsa/dsa/
+    - text: Read Interview Handbook
+      link: /handbook/javascript/
       icon: right-arrow
       variant: primary
     - text: Practice Machine Coding
@@ -19,6 +19,9 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 ## 🚀 What's Inside
 
 <CardGrid stagger>
+	<Card title="📖 Interview Handbook" icon="open-book">
+		Comprehensive breakdown of JS, React, System Design, Performance, Security, Debugging, and Top 15 Questions.
+	</Card>
 	<Card title="🧠 DSA Cheatsheet" icon="pencil">
 		Core data structures and algorithms concepts tailored for frontend engineers.
 	</Card>
@@ -28,7 +31,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	<Card title="💻 Interactive Machine Coding" icon="laptop">
 		Live runnable mini-applications like WhatsApp Chat, Google Calendar, Nested Checkbox, TypeAhead, File Tree with embedded previews.
 	</Card>
-	<Card title="🏢 Company Experiences" icon="open-book">
+	<Card title="🏢 Company Experiences" icon="document">
 		Real interview questions and round experiences from Google, Amazon, Uber, Rippling, Dream11, Thoughtspot, and more.
 	</Card>
 </CardGrid>
