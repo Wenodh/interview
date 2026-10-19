@@ -1,0 +1,60 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
+
+interface Props {
+  appUrl: string;
+  htmlCode?: string;
+  jsCode?: string;
+  cssCode?: string;
+}
+
+const { appUrl, htmlCode, jsCode, cssCode } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL.slice(0, -1)
+  : import.meta.env.BASE_URL;
+
+const resolvedAppUrl = appUrl.startsWith('/')
+  ? `${baseUrl}${appUrl}`
+  : `${baseUrl}/${appUrl}`;
+---
+
+<div class="machine-sandbox-container my-6">
+  <Tabs>
+    <TabItem label="📱 Live Sandbox Preview" icon="laptop">
+      <div class="sandbox-preview-container rounded-lg border border-gray-700 bg-slate-900 overflow-hidden shadow-lg my-4">
+        <div class="sandbox-header flex flex-wrap items-center justify-between px-4 py-2.5 bg-slate-800/90 border-b border-gray-700/80 text-xs text-gray-300 gap-2">
+          <span class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 inline-block shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500 inline-block shadow-sm"></span>
+            <span class="ml-2 font-mono text-gray-400 truncate max-w-[280px] sm:max-w-md">{resolvedAppUrl}</span>
+          </span>
+          <a href={resolvedAppUrl} target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition-colors font-medium flex items-center gap-1.5 px-2 py-1 rounded bg-slate-700/50 hover:bg-slate-700">
+            <span>Open standalone</span> ↗
+          </a>
+        </div>
+        <iframe src={resolvedAppUrl} class="sandbox-iframe w-full min-h-[520px] h-[60vh] bg-white border-0 shadow-inner" title="Machine Coding Live Preview"></iframe>
+      </div>
+    </TabItem>
+
+    {jsCode && jsCode.trim().length > 0 && (
+      <TabItem label="JavaScript (index.js)" icon="code">
+        <Code code={jsCode} lang="javascript" title="index.js" />
+      </TabItem>
+    )}
+
+    {htmlCode && htmlCode.trim().length > 0 && (
+      <TabItem label="HTML (index.html)" icon="document">
+        <Code code={htmlCode} lang="html" title="index.html" />
+      </TabItem>
+    )}
+
+    {cssCode && cssCode.trim().length > 0 && (
+      <TabItem label="CSS (style.css)" icon="star">
+        <Code code={cssCode} lang="css" title="style.css" />
+      </TabItem>
+    )}
+  </Tabs>
+</div>

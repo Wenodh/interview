@@ -1,0 +1,730 @@
+---
+title: "Mphasis - Senior Frontend Developer Interview Experience"
+description: "Candidate-reported interview experience for Senior Frontend Developer at Mphasis featuring JavaScript, React Fiber, React Hooks, Coding Challenges, and Resume/Project Discussion."
+---
+
+import MachineSandbox from '../../../components/MachineSandbox.astro';
+import InterviewPractice from '../../../components/InterviewPractice.tsx';
+
+> ⚠️ **Disclaimer & Source Integrity Notice:**
+> This document represents a **candidate-reported interview experience** shared publicly, and is **not an official Mphasis interview pattern or evaluation rubric**. Questions explicitly reported from the candidate experience are tagged as `[Reported Question]`, reference URLs provided in the post are tagged as `[Linked Reference]`, and additional preparation material generated to assist learning is tagged as `[Supplementary Practice Question]` or `[Practice Extension]`.
+
+---
+
+## 📋 Interview Experience Metadata
+
+| Attribute | Details |
+| :--- | :--- |
+| **Company** | **Mphasis** |
+| **Role** | **Senior Frontend Developer** |
+| **Experience Type** | Candidate-Reported Interview Experience |
+| **Interview Rounds** | 2 Rounds (Round 1: Technical & Coding, Round 2: Resume & Project Discussion) |
+| **Primary Technologies** | JavaScript (ES6+), React.js, React Hooks, Web Performance |
+| **Assessment Areas** | JS Event Loop, Async Programming, React Fiber Internals, React State & Side Effects, Form Validation, Countdown Timer, System Architecture, Resume Discussion |
+| **Source Attribution** | Shared by Mansi Gupta, Lead Software Engineer at devtools.tech |
+| **Source URL** | [https://www.linkedin.com/](https://www.linkedin.com/) |
+
+---
+
+export const mphasisQuestions = [
+  {
+    id: 'mph_q1',
+    round: 'Round 1: Technical & Coding',
+    category: 'JavaScript',
+    type: 'conceptual',
+    badge: 'Reported Question',
+    difficulty: 'Medium',
+    title: 'Explain the JavaScript Event Loop',
+    summary: 'Explain how JavaScript achieves non-blocking asynchronous concurrency despite being single-threaded, detailing Call Stack, Web APIs, Task Queue (Macrotask), and Microtask Queue execution priority.',
+    hints: [
+      'Think about single-threaded execution and where synchronous vs asynchronous functions execute.',
+      'Differentiate between Microtasks (Promises, process.nextTick, MutationObserver) and Macrotasks (setTimeout, setInterval, I/O, UI rendering).',
+      'Remember the event loop tick priority: Call Stack empties -> Microtask Queue drained completely -> One Macrotask processed -> UI render.'
+    ],
+    explanation: `### Core Answer Framework:
+1. **Single-Threaded Engine**:
+   JavaScript runs on a single main thread with a single Call Stack. It executes code synchronously line-by-line.
+
+2. **Components of the Runtime Environment**:
+   - **Call Stack**: Tracks function execution frames.
+   - **Web APIs / Node APIs**: Offloads asynchronous operations (timers, HTTP requests, DOM events) to the browser/environment runtime threads.
+   - **Microtask Queue**: Holds callbacks from Promises (\`.then\`, \`.catch\`, \`.finally\`), \`queueMicrotask()\`, and MutationObservers.
+   - **Task Queue (Macrotask Queue)**: Holds callbacks from \`setTimeout\`, \`setInterval\`, \`setImmediate\` (Node.js), and I/O tasks.
+
+3. **Event Loop Mechanics**:
+   - The Event Loop constantly monitors the Call Stack.
+   - When the Call Stack is empty:
+     1. It executes **ALL** pending callbacks in the **Microtask Queue** until it is completely empty (including new microtasks queued during execution).
+     2. It allows browser rendering/layout repaints if necessary.
+     3. It picks **ONE** task from the **Macrotask Queue** and pushes it to the Call Stack.
+     4. Repeat loop.`,
+    codeSnippet: `console.log('1: Start');
+
+setTimeout(() => {
+  console.log('2: Macrotask (setTimeout)');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('3: Microtask 1');
+}).then(() => {
+  console.log('4: Microtask 2');
+});
+
+console.log('5: End');
+
+// Output order:
+// 1: Start
+// 5: End
+// 3: Microtask 1
+// 4: Microtask 2
+// 2: Macrotask (setTimeout)`,
+    followUpQuestions: [
+      'What happens if a microtask continuously schedules another microtask?',
+      'How does requestAnimationFrame fit into the Event Loop lifecycle?',
+      'Why does setTimeout(fn, 0) not guarantee execution in exactly 0 milliseconds?'
+    ]
+  },
+  {
+    id: 'mph_q2',
+    round: 'Round 1: Technical & Coding',
+    category: 'JavaScript',
+    type: 'conceptual',
+    badge: 'Reported Question',
+    difficulty: 'Easy',
+    title: 'Explain Synchronous versus Asynchronous Code Execution',
+    summary: 'Compare synchronous (blocking) execution vs asynchronous (non-blocking) execution in JavaScript, detailing thread blocking, performance impact, and user experience.',
+    hints: [
+      'Synchronous code executes sequentially line-by-line and halts further execution until the current operation finishes.',
+      'Asynchronous code delegates heavy or I/O operations to runtime APIs and executes callbacks/promises when ready without freezing the main UI thread.'
+    ],
+    explanation: `### Key Distinctions:
+- **Synchronous Execution**:
+  - Code is executed sequentially, line by line.
+  - Each statement waits for the previous statement to complete before moving to the next.
+  - If a function performs a heavy task (e.g., massive array loop, synchronous file reading), the main thread is blocked, freezing UI responsiveness and user interactions.
+
+- **Asynchronous Execution**:
+  - Code execution is non-blocking. Long-running tasks (network requests, timers, file I/O) are initiated and handled by the browser/Node environment APIs in the background.
+  - The main thread continues executing subsequent synchronous instructions immediately.
+  - Once the async task completes, its callback/promise handler is queued for execution via the Event Loop.
+
+### Comparison Table:
+| Feature | Synchronous | Asynchronous |
+| :--- | :--- | :--- |
+| **Execution Flow** | Line-by-line sequential | Non-blocking / Event-driven |
+| **Main Thread Impact** | Blocks Call Stack during long tasks | Offloads long tasks, keeps Call Stack free |
+| **UI Responsiveness** | Can freeze UI / layout | Smooth, highly responsive UI |
+| **Constructs Used** | Standard statements, loops | Callbacks, Promises, async/await |`,
+    codeSnippet: `// Synchronous Blocking Example
+function blockMainThread() {
+  const start = Date.now();
+  while (Date.now() - start < 2000) {} // Blocks thread for 2 seconds
+  console.log('Sync block finished');
+}
+
+// Asynchronous Non-blocking Example
+function nonBlockingTask() {
+  setTimeout(() => {
+    console.log('Async task finished after 2s');
+  }, 2000);
+  console.log('Immediate log without blocking');
+}`,
+    followUpQuestions: [
+      'How do Web Workers allow true multi-threaded parallel execution in JavaScript?',
+      'What are memory leaks associated with long-lived synchronous closures?'
+    ]
+  },
+  {
+    id: 'mph_q3',
+    round: 'Round 1: Technical & Coding',
+    category: 'JavaScript',
+    type: 'conceptual',
+    badge: 'Reported Question',
+    difficulty: 'Medium',
+    title: 'How Does JavaScript Handle Asynchronous Operations?',
+    summary: 'Trace the evolution of handling asynchronous code in JavaScript from Callbacks and Callback Hell to Promises and Async/Await.',
+    hints: [
+      'Start with early asynchronous mechanisms: Callbacks and event listeners.',
+      'Explain Promises and state transitions (Pending, Fulfilled, Rejected).',
+      'Explain how async/await offers syntactic sugar over Promises using generator/coroutine concepts.'
+    ],
+    explanation: `### Evolution of Async Handling in JS:
+
+1. **Callbacks & Event Listeners**:
+   - Functions passed as arguments to be called when an operation completes.
+   - *Problem*: "Callback Hell" or "Pyramid of Doom", poor error handling, unhandled exceptions.
+
+2. **Promises (ES6)**:
+   - Objects representing eventual completion or failure of an async operation.
+   - States: \`Pending\`, \`Fulfilled\`, \`Rejected\`.
+   - Immutable once settled.
+   - Enables clean chaining via \`.then()\`, \`.catch()\`, and \`.finally()\`.
+   - Static combinators: \`Promise.all\`, \`Promise.allSettled\`, \`Promise.race\`, \`Promise.any\`.
+
+3. **Async / Await (ES2017)**:
+   - Syntactic sugar built on top of Promises and Generators.
+   - Makes asynchronous code read synchronously.
+   - Returns a Promise implicitly.
+   - Handles errors cleanly using standard \`try...catch\` blocks.`,
+    codeSnippet: `// 1. Promises
+function fetchData(url) {
+  return fetch(url).then(res => res.json());
+}
+
+// 2. Async/Await equivalent with error handling
+async function loadUserData(userId) {
+  try {
+    const response = await fetch(\`/api/users/\${userId}\`);
+    if (!response.ok) throw new Error('HTTP error');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to load user:', error);
+    throw error;
+  }
+}`,
+    followUpQuestions: [
+      'How do you execute independent async requests in parallel vs sequentially using async/await?',
+      'What happens if you forget to handle a rejected Promise?'
+    ]
+  },
+  {
+    id: 'mph_q4',
+    round: 'Round 1: Technical & Coding',
+    category: 'React.js',
+    type: 'conceptual',
+    badge: 'Reported Question',
+    difficulty: 'Hard',
+    title: 'Explain React Fiber and How it Improves Rendering Performance',
+    summary: 'Explain the architecture and purpose of React Fiber, comparing the legacy Stack reconciler with Fiber incremental rendering, priority levels, and work interruption.',
+    hints: [
+      'Contrast Stack reconciler (recursive, non-interruptible synchronous rendering) with Fiber (fiber node tree, interruptible work units).',
+      'Mention fiber units of work, two-phase rendering (Render/Reconciliation phase vs Commit phase), and requestIdleCallback scheduling.'
+    ],
+    explanation: `### What is React Fiber?
+React Fiber is a complete rewrite of React’s core reconciliation algorithm introduced in React 16. It transforms React's rendering process from synchronous recursive execution into **incremental, schedulable units of work**.
+
+### Problem with Legacy Stack Reconciler:
+- Stack reconciler processed element trees synchronously and recursively.
+- Heavy component updates locked up the main thread until the entire tree finished re-rendering, causing dropped animation frames and input lag ("jank").
+
+### Core Concepts of Fiber:
+1. **Fiber Node as Unit of Work**:
+   Each React element corresponds to a Fiber node (a plain JS object containing component type, state, props, child, sibling, return pointer, and lane/priority).
+2. **Two-Phase Architecture**:
+   - **Render / Reconciliation Phase (Async & Interruptible)**: React walks the fiber tree, computes diffs, and assigns priority. Can be paused, aborted, or restarted.
+   - **Commit Phase (Sync & Uninterruptible)**: React applies DOM mutations and executes lifecycle/effects (\`useLayoutEffect\`, \`useEffect\`).
+3. **Priority Lanes & Time Slicing**:
+   - Updates are categorized by priority (e.g., discrete user interactions like clicks get high priority, off-screen data fetching gets low priority).
+   - React slices rendering work into small chunks (~5ms per frame) to yield control back to the browser event loop for smooth user interactions.`,
+    codeSnippet: `// Fiber Node Structure (Simplified Conceptual Representation)
+{
+  tag: WorkTag,            // FunctionComponent, ClassComponent, HostComponent, etc.
+  key: null | string,
+  stateNode: any,          // DOM element or component instance
+  return: Fiber | null,    // Parent fiber
+  child: Fiber | null,     // First child fiber
+  sibling: Fiber | null,   // Right sibling fiber
+  memoizedState: any,      // Hooks linked list head
+  lanes: Lanes,            // Priority bitmask
+}`,
+    followUpQuestions: [
+      'Why is the Commit Phase synchronous while the Render Phase can be interrupted?',
+      'How do React Concurrent Features like useTransition and useDeferredValue leverage Fiber?'
+    ]
+  },
+  {
+    id: 'mph_q5',
+    round: 'Round 1: Technical & Coding',
+    category: 'React.js',
+    type: 'conceptual',
+    badge: 'Reported Question',
+    difficulty: 'Medium',
+    title: 'How Do You Manage State and Side Effects Using React Hooks?',
+    summary: 'Detail state management and side-effect handling using useState, useReducer, useEffect, useLayoutEffect, and custom hooks, including dependency arrays and cleanup functions.',
+    hints: [
+      'Explain state primitives (useState for component state, useReducer for complex/nested state logic).',
+      'Explain useEffect execution timing (after DOM paint) vs useLayoutEffect execution timing (before DOM paint).',
+      'Highlight the importance of cleanup functions in useEffect for timers, subscriptions, and event listeners.'
+    ],
+    explanation: `### Managing State in Functional Components:
+1. **useState**:
+   - Primary hook for local component state.
+   - Supports functional updates: \`setCount(prev => prev + 1)\` to avoid stale state closures.
+2. **useReducer**:
+   - Ideal for complex state transitions, multi-field updates, or logic dependent on previous state.
+   - Follows Redux-like pattern \`(state, action) => newState\`.
+
+### Managing Side Effects:
+1. **useEffect**:
+   - Runs asynchronously **after** DOM updates and browser paint.
+   - Dependency Array Rules:
+     - \`[]\`: Runs once after initial mount.
+     - \`[dep1, dep2]\`: Runs on mount and whenever listed dependencies change.
+     - *No array*: Runs after every render (use cautiously).
+   - **Cleanup Function**: Executed before the component unmounts and before re-running the effect on dependency change. Essential to prevent memory leaks.
+
+2. **useLayoutEffect**:
+   - Runs synchronously **after DOM mutations but before browser paint**.
+   - Used for DOM measurements and preventing visual UI flicker.`,
+    codeSnippet: `import { useState, useEffect } from 'react';
+
+function UserStatus({ userId }) {
+  const [status, setStatus] = useState('offline');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const subscription = api.subscribeUserStatus(userId, (newStatus) => {
+      if (isMounted) setStatus(newStatus);
+    });
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [userId]); // Dependency array
+
+  return <div>User Status: {status}</div>;
+}`,
+    followUpQuestions: [
+      'What causes stale closures in useEffect and how do you fix them?',
+      'When should you create custom hooks for state and side-effect reuse?'
+    ]
+  },
+  {
+    id: 'mph_q6',
+    round: 'Round 1: Technical & Coding',
+    category: 'Coding Challenges',
+    type: 'coding',
+    badge: 'Linked Reference',
+    sourceUrl: 'https://lnkd.in/dah_v6mJ',
+    sourceNote: 'Similar question reference provided in post',
+    difficulty: 'Medium',
+    title: 'Coding Challenge: Form Validation in React',
+    summary: 'Build a robust, responsive React registration form covering controlled components, validation rules, error state management, real-time feedback, and form submission.',
+    hints: [
+      'Maintain form input state as a controlled object state.',
+      'Separate field values, field error messages, and touch/dirty flags.',
+      'Validate individual inputs on blur/change and validate all fields on form submit.'
+    ],
+    explanation: `### Practical Implementation Guidance:
+This coding exercise tests fundamental React component state management, controlled inputs, error handling, and form lifecycle validation.
+
+### Required Practice Features:
+1. **Controlled Inputs**: Bind \`value\` and \`onChange\` handlers for Full Name, Email, Password, Confirm Password, and Terms Checkbox.
+2. **Validation Rules**:
+   - Full Name: Required, minimum 3 characters.
+   - Email: Valid regex pattern (\`/^[^\s@]+@[^\s@]+\.[^\s@]+$/\`).
+   - Password: Minimum 8 characters, at least 1 digit.
+   - Confirm Password: Must match Password field.
+   - Terms & Conditions: Must be checked.
+3. **Error Feedback**: Show clear error message below each field when invalid.
+4. **Form Reset**: Clear form values and reset error state.`,
+    acceptanceCriteria: [
+      'All inputs are controlled components tied to React state.',
+      'Validation triggers appropriately and displays explicit error messages.',
+      'Submit button triggers overall form validation and shows success alert if valid.',
+      'Reset button restores form and error states to initial clean state.'
+    ],
+    edgeCases: [
+      'Submitting empty form before touching any field.',
+      'Pasting whitespace-only values in required text fields.',
+      'Changing password field after confirm password was already typed and validated.'
+    ],
+    testChecklist: [
+      'Verify invalid email prevents submission.',
+      'Verify mismatch in confirm password highlights error immediately.',
+      'Verify checkbox state is validated on submit.'
+    ]
+  },
+  {
+    id: 'mph_q7',
+    round: 'Round 1: Technical & Coding',
+    category: 'Coding Challenges',
+    type: 'coding',
+    badge: 'Linked Reference',
+    sourceUrl: 'https://lnkd.in/dKhJRjkU',
+    sourceNote: 'Exact question link provided in source post',
+    difficulty: 'Medium',
+    title: 'Coding Challenge: Countdown Timer',
+    summary: 'Build a complete countdown timer component with hour, minute, and second inputs, Start/Pause/Reset controls, interval cleanup, and countdown completion handling.',
+    hints: [
+      'Store total remaining time in seconds in component state.',
+      'Use setInterval inside an effect or handler and keep track of timer ID in ref or state.',
+      'Always clear interval on timer completion, pause, or component unmount to avoid timer leaks.'
+    ],
+    explanation: `### Practical Implementation Guidance:
+This exercise tests timer management, \`setInterval\` interval cleanup, React state updates, and disabling input controls during active countdowns.
+
+### Required Practice Features:
+1. **Timer Setup**: Input fields for Hours, Minutes, and Seconds.
+2. **Control Buttons**:
+   - **Start**: Initiates or resumes countdown, disables input fields.
+   - **Pause**: Pauses active timer, preserves remaining time.
+   - **Reset**: Stops timer, restores default inputs and clears display.
+3. **Timer Expiration**: Auto-clears interval at 00:00:00 and notifies user.`,
+    acceptanceCriteria: [
+      'Timer accurately decrements remaining seconds every 1000ms.',
+      'Controls transition state cleanly (Start/Pause disable states).',
+      'Interval is completely cleaned up when timer reaches zero or on unmount.',
+      'Formatted HH:MM:SS display remains clean with zero padding.'
+    ],
+    edgeCases: [
+      'Entering negative numbers or non-numeric characters in time inputs.',
+      'Clicking Start multiple times rapidly (prevent multiple parallel intervals).',
+      'Setting timer to 0 hours 0 minutes 0 seconds and clicking Start.'
+    ],
+    testChecklist: [
+      'Verify Pause stops countdown without resetting time.',
+      'Verify Reset restores original state and enables inputs.',
+      'Verify unmounting component during active countdown does not throw memory leak warnings.'
+    ]
+  },
+
+  // Round 2 Questions
+  {
+    id: 'mph_q8',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Previous Project Experience',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'Explain Your Current Project Architecture',
+    summary: 'Structure a high-level walkthrough of your current application architecture, technology choices, module organization, data flow, and backend integration.',
+    hints: [
+      'Structure response: Business Domain -> Tech Stack -> Frontend Architecture & State -> Backend Integration -> CI/CD.',
+      'Be clear about monolithic vs micro-frontend vs monorepo setup.'
+    ],
+    explanation: `### Structured Response Template & Guidance:
+
+> **Practice Personalization Framework:** Fill in details based on your actual work history.
+
+#### Answer Structure:
+1. **Overview & Domain**:
+   - *"I work on [Project Name/Domain, e.g., Enterprise E-commerce / Analytics Dashboard], which serves [Target Users/Metrics]."*
+2. **Tech Stack & Core Libraries**:
+   - *"Our application is built with React 18, TypeScript, Redux Toolkit / React Query, and Next.js / Vite, styled using Tailwind CSS / Ant Design."*
+3. **Application Layering & Module Organization**:
+   - Feature-based folder structure (\`features/auth\`, \`features/dashboard\`, \`components/common\`, \`services/api\`).
+   - Clean separation between presentation UI components and custom hooks / data-fetching logic.
+4. **Data Flow & API Layer**:
+   - Centralized Axios/Fetch client with interceptors for auth tokens and global error handling.
+   - Server state cached using React Query / RTK Query, global UI state managed via Zustand / Redux.`,
+    followUpQuestions: [
+      'Why did your team choose this specific state management tool over alternatives?',
+      'How do you manage environment configuration across Dev, Staging, and Production?'
+    ]
+  },
+  {
+    id: 'mph_q9',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Technical Contributions & Responsibilities',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'What Are Your Individual Responsibilities and Technical Contributions?',
+    summary: 'Highlight core engineering ownership, key features delivered, technical leadership, code review practices, and performance impact.',
+    hints: [
+      'Focus on "I" statements rather than generic "we".',
+      'Highlight concrete technical initiatives you owned from design to delivery.'
+    ],
+    explanation: `### Structured Response Template & Guidance:
+
+#### Answer Framework:
+- **Core Engineering Ownership**:
+  - *"As a Senior Frontend Developer, I own the end-to-end frontend architecture of [Module/Feature, e.g., Checkout Flow / Real-time Data Visualization]."
+- **Key Technical Contributions**:
+  - *"Designed and authored reusable component design systems used across 5 engineering squads."*
+  - *"Implemented optimistic UI updates and websocket integration for live notifications."*
+  - *"Set up CI/CD pipeline checks for ESLint, Prettier, TypeScript, and Playwright automated tests."*
+- **Leadership & Code Quality**:
+  - *"Conduct code reviews focusing on performance, accessibility (a11y), and test coverage."*
+  - *"Mentor junior developers through pair programming and weekly tech sharing sessions."*`,
+    followUpQuestions: [
+      'How do you balance delivering feature requests quickly with managing technical debt?',
+      'How do you establish coding standards within your frontend team?'
+    ]
+  },
+  {
+    id: 'mph_q10',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Practical Application of Concepts',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'How Do You Manage State and Side Effects in Your Project?',
+    summary: 'Explain your project\'s state classification strategy (local, global, server, form state) and side-effect management in production.',
+    hints: [
+      'Differentiate between Server State (caching, revalidation) and Client UI State.',
+      'Explain how you prevent unnecessary global state bloat.'
+    ],
+    explanation: `### Structured Response Template & Guidance:
+
+#### State Separation Strategy in Production:
+1. **Server State**: Managed via **React Query / RTK Query** (handles caching, background refetching, deduplication, and stale time configuration).
+2. **Global Client State**: Managed via **Zustand / Redux Toolkit** (stores authenticated user session, theme, workspace settings).
+3. **Local UI State**: Managed via **useState / useReducer** (handles modal open/close states, local accordion toggles).
+4. **Form State**: Managed via **React Hook Form / Formik** with **Zod / Yup** schema validation (prevents unnecessary re-renders during text input).`,
+    followUpQuestions: [
+      'How do you invalidate or sync server state across multiple tabs or websocket updates?',
+      'How do you handle state rehydration after page reload?'
+    ]
+  },
+  {
+    id: 'mph_q11',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Frontend Challenges & Solutions',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Hard',
+    title: 'Describe a Challenging Frontend Problem You Solved',
+    summary: 'Use the STAR method (Situation, Task, Action, Result) to detail a complex technical challenge (e.g., rendering thousands of DOM nodes, memory leak, complex state race condition) and your solution.',
+    hints: [
+      'Use STAR format: Situation, Task, Action, Result.',
+      'Include quantitative metrics in your Result (e.g., bundle size reduced by 35%, FPS improved from 20 to 60).'
+    ],
+    explanation: `### Structured Response Template (STAR Method):
+
+- **Situation**:
+  - *"In our data dashboard, rendering a dataset with over 10,000 tabular rows caused severe page lag, frozen scrolling, and high memory usage (>500MB)."*
+- **Task**:
+  - *"My objective was to achieve smooth 60 FPS scrolling and reduce memory overhead without sacrificing table features like sorting and filtering."*
+- **Action**:
+  - *"Analyzed DOM node count using Chrome DevTools Performance tab."*
+  - *"Implemented DOM Virtualization (\`react-window\` / \`tanstack-virtual\`) to render only visible viewport rows (~20 nodes instead of 10,000)."*
+  - *"Memoized row renderers using \`React.memo\` and custom comparison functions."*
+- **Result**:
+  - *"Reduced DOM element count from 10,000+ to <50 nodes."*
+  - *"Improved scroll frame rate from 18 FPS to a solid 60 FPS and reduced JS memory heap by 70%."*`,
+    followUpQuestions: [
+      'What alternative libraries or custom implementations did you evaluate before settling on virtualization?',
+      'How did you test this under slow CPU / memory throttling conditions?'
+    ]
+  },
+  {
+    id: 'mph_q12',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Practical Application of Concepts',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'How Do You Debug and Optimize React Rendering Performance?',
+    summary: 'Discuss profiling tools, re-render diagnosis, memoization strategies (useMemo, useCallback, React.memo), and code splitting.',
+    hints: [
+      'Mention React DevTools Profiler (Flamegraph and Ranked charts).',
+      'Explain common re-render triggers: parent state changes, unmemoized object/function props, context provider updates.'
+    ],
+    explanation: `### Production Profiling & Optimization Playbook:
+
+1. **Identification & Diagnosis**:
+   - Use **React DevTools Profiler** to record render passes and identify components with frequent or long render durations.
+   - Enable *"Highlight updates when components render"* to visualize visual churn.
+   - Use \`why-did-you-render\` library in development to log unnecessary re-renders automatically.
+
+2. **Optimization Techniques**:
+   - **Component Structuring**: Move state down to isolate re-renders close to where state is used.
+   - **Children as Props Pattern**: Pass heavy static trees as \`children\` to avoid re-rendering them when parent state changes.
+   - **Memoization**:
+     - \`useCallback\`: Memoize callback functions passed to memoized child components.
+     - \`useMemo\`: Memoize expensive calculations or object references.
+     - \`React.memo\`: Wrap pure components to skip re-rendering when props remain shallowly equal.
+3. **Bundle & Code Splitting**:
+   - Utilize \`React.lazy\` and \`Suspense\` for route-based lazy loading.`,
+    followUpQuestions: [
+      'Why can overusing useMemo and useCallback actually degrade performance?',
+      'How does React Context trigger re-renders across consumers and how do you mitigate it?'
+    ]
+  },
+  {
+    id: 'mph_q13',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Frontend Challenges & Solutions',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'How Do You Handle Asynchronous API Calls, Loading States, and Errors?',
+    summary: 'Explain handling API lifecycles, user feedback indicators, skeleton loaders, optimistic updates, and global error boundaries.',
+    hints: [
+      'Discuss UI user experience during data fetching: Skeleton loaders vs spinners.',
+      'Explain error boundary fallback and retry strategies.'
+    ],
+    explanation: `### API Data Management Strategy:
+
+1. **User Experience & Loading States**:
+   - Prefer **Skeleton Screens** over generic center spinners to minimize perceived layout shift (CLS).
+   - Use **Optimistic UI Updates** for instant user feedback on actions like liking a post or toggling a bookmark.
+
+2. **Error Handling Layers**:
+   - **Component-Level Error State**: Display contextual inline error messages with retry buttons.
+   - **Global React Error Boundaries**: Catch unhandled runtime render errors in component subtrees and display fallback UI without crashing the entire app.
+   - **API Interceptors**: Handle \`401 Unauthorized\` (auto token refresh), \`403 Forbidden\`, and \`500 Server Errors\` globally with toast notifications.`,
+    followUpQuestions: [
+      'How do you cancel pending HTTP requests when a user navigates away or types a new query (AbortController)?',
+      'How do you retry failed network requests with exponential backoff?'
+    ]
+  },
+  {
+    id: 'mph_q14',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Technical Contributions & Responsibilities',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'Explain a Technical Decision You Made and the Alternatives You Considered',
+    summary: 'Demonstrate architectural trade-off evaluation, trade-off analysis, team consensus building, and post-implementation reflection.',
+    hints: [
+      'Focus on trade-offs: performance, developer experience, bundle size, maintainability, team familiarity.',
+      'Show that you evaluated multiple options before choosing.'
+    ],
+    explanation: `### Decision-Making Example Framework:
+
+- **Context & Goal**:
+  - *"We needed to choose a form management and validation solution for an enterprise multi-step form with over 50 dynamic fields."*
+- **Options Evaluated**:
+  1. *Formik + Yup*: Well-known, but caused full form re-renders on every keystroke, leading to input lag.
+  2. *Custom Uncontrolled Form*: Fast, but required writing excessive custom DOM ref boilerplate.
+  3. *React Hook Form + Zod*: Uncontrolled subscription-based rendering with type-safe schema validation.
+- **Selection & Trade-off Analysis**:
+  - Selected **React Hook Form + Zod**.
+  - *Trade-off*: Required a minor learning curve for junior developers on hook subscription patterns.
+  - *Benefit*: Reduced field typing re-renders from 50 to 1, cutting CPU usage during form filling by 80%.`,
+    followUpQuestions: [
+      'If you were starting the project today with new requirements, would you make the same decision?',
+      'How did you document this decision (e.g., Architecture Decision Record - ADR)?'
+    ]
+  },
+  {
+    id: 'mph_q15',
+    round: 'Round 2: Resume & Project Discussion',
+    category: 'Technical Contributions & Responsibilities',
+    type: 'project-discussion',
+    badge: 'Supplementary Practice Question',
+    difficulty: 'Medium',
+    title: 'How Do You Test Your Components and Prevent Regressions?',
+    summary: 'Outline your testing pyramid for frontend applications, including Unit tests, Integration tests (Testing Library), and End-to-End tests (Playwright/Cypress).',
+    hints: [
+      'Reference the testing pyramid: Unit (Jest/Vitest) -> Integration (React Testing Library) -> E2E (Playwright).',
+      'Emphasize user-centric testing ("Test behavior, not implementation details").'
+    ],
+    explanation: `### Frontend Testing Strategy:
+
+1. **Unit Testing (Jest / Vitest)**:
+   - Test utility functions, custom hooks (\`@testing-library/react-hooks\`), pure math/formatting helpers.
+
+2. **Integration Testing (React Testing Library & MSW)**:
+   - Test components from user perspective (\`screen.getByRole\`, \`userEvent.click\`).
+   - Mock network responses at network level using **Mock Service Worker (MSW)** rather than mocking internal fetch/axios modules.
+
+3. **End-to-End Testing (Playwright / Cypress)**:
+   - Test critical business paths: Login -> Add to Cart -> Checkout.
+   - Run automatically in CI/CD pipeline prior to production release.`,
+    followUpQuestions: [
+      'Why is testing implementation details (e.g., checking component state directly) discouraged in React Testing Library?',
+      'How do you measure test coverage and ensure critical paths are covered?'
+    ]
+  }
+];
+
+## ⚡ Interactive Question & Practice Suite
+
+Use the interactive widget below to practice both rounds question-by-question. Type your answer drafts, reveal progressive hints, inspect explanations, and track your practice status.
+
+<InterviewPractice client:load questions={mphasisQuestions} storagePrefix="mphasis_prep_" />
+
+---
+
+## 💻 Round 1 Practical Coding Challenges
+
+Below are interactive live sandboxes for the two practical coding exercises from Round 1. You can test inputs, view source code, and practice building these components.
+
+### 1. Form Validation in React
+
+- **Reference URL:** [https://lnkd.in/dah_v6mJ](https://lnkd.in/dah_v6mJ) `[Linked Reference]`
+- **Reference Type:** Similar question reference provided in source post.
+
+<MachineSandbox
+  appUrl="/apps/machine-coding/form-validation/index.html"
+  htmlCode={`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Form Validation Demo</title>
+</head>
+<body>
+  <form id="signup-form">
+    <input type="text" id="fullName" placeholder="Full Name" />
+    <input type="email" id="email" placeholder="Email Address" />
+    <input type="password" id="password" placeholder="Password" />
+    <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+    <label><input type="checkbox" id="terms" /> Accept Terms</label>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>`}
+  jsCode={`// React / JS Controlled State & Validation Logic
+const validateForm = (values) => {
+  const errors = {};
+  if (!values.fullName || values.fullName.length < 3) errors.fullName = 'Name must be at least 3 chars';
+  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(values.email)) errors.email = 'Invalid email address';
+  if (!values.password || values.password.length < 8) errors.password = 'Password must be >= 8 chars';
+  if (values.password !== values.confirmPassword) errors.confirmPassword = 'Passwords do not match';
+  if (!values.terms) errors.terms = 'Must accept terms';
+  return errors;
+};`}
+  cssCode={`body { background: #0f172a; color: #f8fafc; font-family: sans-serif; }
+.error-msg { color: #f87171; font-size: 0.8rem; }`}
+/>
+
+---
+
+### 2. Countdown Timer
+
+- **Reference URL:** [https://lnkd.in/dKhJRjkU](https://lnkd.in/dKhJRjkU) `[Linked Reference]`
+- **Reference Type:** Exact question link provided in original source post.
+
+<MachineSandbox
+  appUrl="/apps/machine-coding/countdown-timer/index.html"
+  htmlCode={`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Countdown Timer Demo</title>
+</head>
+<body>
+  <div class="timer-display" id="timer-display">00:05:00</div>
+  <button id="start-btn">Start</button>
+  <button id="pause-btn">Pause</button>
+  <button id="reset-btn">Reset</button>
+</body>
+</html>`}
+  jsCode={`// Timer logic with setInterval & cleanup
+let timerInterval = null;
+let totalSeconds = 300;
+
+function startTimer() {
+  if (!timerInterval && totalSeconds > 0) {
+    timerInterval = setInterval(() => {
+      totalSeconds--;
+      updateDisplay();
+      if (totalSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }, 1000);
+  }
+}`}
+  cssCode={`.timer-display { font-size: 2.5rem; font-family: monospace; color: #38bdf8; }`}
+/>
+
+---
+
+## 📌 Summary of Round 2 Resume & Project Preparation
+
+When preparing for **Round 2: Resume & Project Discussion**, structure your actual experience using the following guidelines:
+
+1. **Previous Project Architecture:** Be prepared to draw or explain your application stack, state flow, and backend integration.
+2. **Individual Technical Contributions:** Focus on specific features you designed, performance optimizations you drove, or design systems you built.
+3. **Handling High-Impact Problems:** Prepare a STAR story detailing a real challenge, the choices you evaluated, and the measured outcome.
+4. **Honesty & Integrity:** Speak directly from your verified work experience. Do not fabricate metrics or ownership. Use structured templates to highlight your true accomplishments!
