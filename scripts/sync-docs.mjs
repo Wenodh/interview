@@ -134,9 +134,10 @@ if (fs.existsSync(expSourceDir)) {
   for (const item of items) {
     const itemPath = path.join(expSourceDir, item);
     const stat = fs.statSync(itemPath);
-    if (stat.isFile() && item.endsWith('.md')) {
+    if (stat.isFile() && (item.endsWith('.md') || item.endsWith('.mdx'))) {
       let content = fs.readFileSync(itemPath, 'utf-8');
-      const nameWithoutExt = path.basename(item, '.md');
+      const ext = path.extname(item);
+      const nameWithoutExt = path.basename(item, ext);
       const title = formatTitle(nameWithoutExt);
       if (!content.trim().startsWith('---')) {
         content = `---\ntitle: "${title}"\ndescription: "Frontend interview experience at ${title}."\n---\n\n` + content;
@@ -147,9 +148,10 @@ if (fs.existsSync(expSourceDir)) {
       ensureDirSync(subTargetDir);
       const subFiles = fs.readdirSync(itemPath);
       for (const subFile of subFiles) {
-        if (subFile.endsWith('.md')) {
+        if (subFile.endsWith('.md') || subFile.endsWith('.mdx')) {
           let content = fs.readFileSync(path.join(itemPath, subFile), 'utf-8');
-          const nameWithoutExt = path.basename(subFile, '.md');
+          const ext = path.extname(subFile);
+          const nameWithoutExt = path.basename(subFile, ext);
           const title = `${formatTitle(item)} - ${formatTitle(nameWithoutExt)}`;
           if (!content.trim().startsWith('---')) {
             content = `---\ntitle: "${title}"\ndescription: "Interview questions and rounds for ${title}."\n---\n\n` + content;
