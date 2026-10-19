@@ -119,4 +119,11 @@
 |----|---------|------------|-------|
 | 1  | [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) | Easy | Asked in SourseFuse |
 
---- 
+---
+
+## Core Frontend DSA Concepts & Key Patterns
+
+- **Matrix / Staircase Search**: Start at a corner (e.g. top-right) and move based on comparison, O(m+n). Also practice spiral and diagonal traversal.
+- **Clone a Graph**: BFS or DFS with a Map from old node to new node to handle cycles. O(V+E).
+- **Lowest Common Ancestor (LCA)**: For a BST, use value comparison. For a binary tree, recurse: if left and right both return non-null, the current node is the LCA. O(n).
+- **Essential Patterns for Frontend Roles**: Two pointers, sliding window, hashmaps, BFS/DFS, binary search, intervals.

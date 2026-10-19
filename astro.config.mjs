@@ -25,6 +25,10 @@ export default defineConfig({
           ],
         },
         {
+          label: '📖 Frontend Interview Handbook',
+          autogenerate: { directory: 'handbook' },
+        },
+        {
           label: '🧠 DSA Cheatsheet',
           autogenerate: { directory: 'dsa' },
         },
