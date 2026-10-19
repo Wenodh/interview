@@ -1,0 +1,117 @@
+---
+title: "DBS Bank - React Developer Interview Preparation Guide"
+description: "Candidate-reported interview preparation guide for React Developer at DBS Bank covering Module Federation, Tree Shaking, Lazy Loading, React Hooks, Redux-Saga, Hydration, MCQs, and the Random Team Generator coding challenge."
+---
+
+import DBSInterviewPractice from '../../../components/DBSInterviewPractice.tsx';
+import MachineSandbox from '../../../components/MachineSandbox.astro';
+
+> ⚠️ **Disclaimer & Source Integrity Notice:**
+> This is a preparation guide based on candidate-shared interview topics, supplemented with educational explanations and practice material. It is not an official DBS Bank question paper. Actual interview questions and assessment formats may vary.
+
+---
+
+## 📋 Interview Experience Metadata
+
+| Attribute | Details |
+| :--- | :--- |
+| **Company** | **DBS Bank** |
+| **Role** | **React Developer** |
+| **Experience Type** | Candidate-reported interview preparation guide |
+| **Assessment Format** | MCQs, conceptual questions, technical depth, and practical coding |
+| **Technologies** | React.js, JavaScript, Redux-Saga, React Router, Module Federation, frontend performance optimization |
+| **Coding Challenge** | Random Team Generator |
+| **Source Title** | DBS Bank React Developer Interview Questions and Answers: MCQs, Concepts & Coding Test |
+| **Source URL** | *Not provided* |
+| **Content Status** | Candidate-reported material supplemented with generated educational explanations and practice questions |
+
+---
+
+## ⚡ Interactive Study & Practice Suite
+
+Use the interactive suite below to study all **9 candidate-reported conceptual questions** with 8-part technical breakdowns, practice **18 supplementary MCQs**, submit written answer drafts for automated heuristic feedback, attempt the **Random Team Generator** coding challenge, and review topic comparison exercises.
+
+<DBSInterviewPractice client:load />
+
+---
+
+## 💻 Practical Coding Challenge: Random Team Generator
+
+The **Random Team Generator** exercise tests Fisher–Yates array shuffling, balanced partition distribution (`baseSize = Math.floor(n / k)`, `remainder = n % k`), controlled React state handling, and input parsing.
+
+### Live Machine Sandbox Preview
+
+Below is an interactive live sandbox for the Random Team Generator challenge:
+
+<MachineSandbox
+  appUrl="/apps/machine-coding/randomteamgenerator/index.html"
+  htmlCode={`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Team Generator</title>
+</head>
+<body>
+  <div class="app-container">
+    <h2>🎲 Random Team Generator</h2>
+    <div class="form-group">
+      <label for="participants-input">Participant Names:</label>
+      <textarea id="participants-input" data-testid="participants-input" rows="5" placeholder="Mary Jane&#10;John Smith&#10;Alex"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="team-count-input">Number of Teams:</label>
+      <input type="number" id="team-count-input" data-testid="team-count-input" placeholder="3" />
+    </div>
+    <div class="actions">
+      <button id="generate-teams-button" data-testid="generate-teams-button">Generate Teams</button>
+      <button id="reset-button" data-testid="reset-button">Reset</button>
+    </div>
+    <div id="teams-output"></div>
+  </div>
+</body>
+</html>`}
+  jsCode={`// Fisher-Yates Shuffle & Balanced Partitioning
+function shuffleParticipants(participants) {
+  const shuffled = [...participants];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+function distributeTeams(participants, k) {
+  const n = participants.length;
+  const baseSize = Math.floor(n / k);
+  const remainder = n % k;
+  const teams = [];
+  let curr = 0;
+
+  for (let i = 0; i < k; i++) {
+    const size = i < remainder ? baseSize + 1 : baseSize;
+    teams.push(participants.slice(curr, curr + size));
+    curr += size;
+  }
+  return teams;
+}`}
+  cssCode={`body { background: #0f172a; color: #f8fafc; font-family: sans-serif; }
+.app-container { max-width: 500px; margin: 0 auto; background: #1e293b; padding: 1rem; border-radius: 8px; }
+button { background: #16a34a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }`}
+/>
+
+---
+
+## 📌 DBS Bank Key Concepts Summary Table
+
+| Topic | Key Concept |
+| :--- | :--- |
+| **Module Federation Dependency Sharing** | React and React DOM shared as compatible singletons |
+| **Production Bundle Optimization** | Tree shaking removes unused exports where safely supported |
+| **Image Performance** | Lazy loading non-critical images |
+| **Component-Local State** | `useState` and state colocation |
+| **SPA Deep Links** | Server fallback to the SPA entry point (`index.html`) |
+| **Redux-Saga** | Watcher and worker sagas |
+| **Runtime Frontend Composition** | Module Federation |
+| **Component Reuse** | Higher-Order Components |
+| **Server-Rendered React** | Client-side hydration |
+| **Random Team Generator** | Validate, shuffle, distribute, and render |

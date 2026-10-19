@@ -1,0 +1,89 @@
+body {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 1rem;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #1e293b;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+textarea, input[type="number"] {
+  width: 100%;
+  padding: 0.6rem;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #475569;
+}
+
+.error-msg {
+  background: #451a1a;
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.teams-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.team-card {
+  background: #0f172a;
+  border: 1px solid #38bdf8;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.team-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: #38bdf8;
+}
+
+.team-card ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
