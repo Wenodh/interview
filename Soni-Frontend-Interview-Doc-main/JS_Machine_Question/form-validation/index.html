@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React Form Validation Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Interactive Form Validation</h2>
+    <p class="subtitle">Practice controlled inputs, validation rules, error handling, and feedback.</p>
+
+    <div id="alert-box" class="alert hidden"></div>
+
+    <form id="signup-form" novalidate>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="John Doe" />
+        <span class="error-msg" id="fullName-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="john@example.com" />
+        <span class="error-msg" id="email-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="At least 8 characters, 1 number" />
+        <span class="error-msg" id="password-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Re-enter password" />
+        <span class="error-msg" id="confirmPassword-error"></span>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="terms" />
+          I agree to the Terms and Conditions
+        </label>
+        <span class="error-msg" id="terms-error"></span>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn">Submit Registration</button>
+        <button type="button" id="reset-btn" class="secondary-btn">Reset Form</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
