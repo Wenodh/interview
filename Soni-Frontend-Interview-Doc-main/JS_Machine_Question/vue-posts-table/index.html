@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue 3 JSONPlaceholder Posts Table</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <main class="container">
+      <h1>Posts List</h1>
+
+      <p v-if="loading" role="status" class="loading-msg">
+        Loading posts...
+      </p>
+
+      <div v-else-if="error" role="alert" class="error-box">
+        <p>{{ error }}</p>
+        <button type="button" @click="fetchPosts" class="btn-retry" data-testid="retry-button">
+          Retry
+        </button>
+      </div>
+
+      <table v-else class="posts-table">
+        <caption>Posts retrieved from JSONPlaceholder</caption>
+
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">User ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Body</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for="post in posts" :key="post.id" data-testid="post-row">
+            <td>{{ post.id }}</td>
+            <td>{{ post.userId }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.body }}</td>
+          </tr>
+
+          <tr v-if="posts.length === 0">
+            <td colspan="4" class="empty-cell">No posts found</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
