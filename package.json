@@ -8,7 +8,8 @@
     "build": "npm run sync-docs && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync-docs": "node scripts/sync-docs.mjs"
+    "sync-docs": "node scripts/sync-docs.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
@@ -20,6 +21,10 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.64.0"
+    "@playwright/test": "^1.64.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "jsdom": "^29.1.1",
+    "vitest": "^5.0.5"
   }
 }
